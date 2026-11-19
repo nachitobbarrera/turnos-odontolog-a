@@ -1,0 +1,31 @@
+{
+  "version": 5,
+  "step": "discovery",
+  "owner": "active-orchestrator",
+  "foundation": {
+    "version": 1,
+    "approved": "2026-11-18",
+    "pre_steps": {
+      "openspec-init": {
+        "status": "done",
+        "command": "openspec init --tools claude --scope project --language es",
+        "outputs": ["openspec/", ".claude/skills/", ".agents/skills/"]
+      }
+    },
+    "pause": {
+      "before": "discovery",
+      "reason": "El usuario hace un commit antes del Discovery"
+    },
+    "order": ["discovery", "kb", "visual-design", "roadmap", "task-management", "find-skill", "registry", "agents"],
+    "phases": {
+      "discovery": {"variant": "competitors", "includes": ["competitors", "interview"], "status": "pending", "requires": [], "output_dir": "docs/discovery/", "outputs": ["docs/discovery/informe-discovery.md"], "notes": "Competidores + entrevista; carpeta de salida docs/discovery/ e informe final informe-discovery.md por pedido del usuario"},
+      "kb": {"variant": "interview", "status": "pending", "requires": ["discovery"], "outputs": ["knowledge-base/"]},
+      "visual-design": {"variant": "deferred", "status": "pending", "requires": [], "outputs": ["design-system/README.md"]},
+      "roadmap": {"variant": "local-markdown", "status": "pending", "requires": ["kb"], "outputs": ["CHANGES.md"]},
+      "task-management": {"variant": "local", "status": "pending", "requires": ["roadmap"], "outputs": [".active-stack/roadmap.json"]},
+      "find-skill": {"variant": "recommend", "status": "pending", "requires": ["kb"], "outputs": []},
+      "registry": {"variant": "index", "status": "pending", "requires": ["find-skill"], "outputs": [".atl/skill-registry.md"]},
+      "agents": {"variant": "generate", "status": "pending", "requires": ["kb", "roadmap", "registry"], "outputs": ["AGENTS.md", "CLAUDE.md"]}
+    }
+  }
+}
