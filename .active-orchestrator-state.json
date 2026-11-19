@@ -1,6 +1,6 @@
 {
   "version": 5,
-  "step": "discovery",
+  "step": "kb",
   "owner": "active-orchestrator",
   "foundation": {
     "version": 1,
@@ -9,23 +9,317 @@
       "openspec-init": {
         "status": "done",
         "command": "openspec init --tools claude --scope project --language es",
-        "outputs": ["openspec/", ".claude/skills/", ".agents/skills/"]
+        "outputs": [
+          "openspec/",
+          ".claude/skills/",
+          ".agents/skills/"
+        ]
+      }
+    },
+    "order": [
+      "discovery",
+      "kb",
+      "visual-design",
+      "roadmap",
+      "task-management",
+      "find-skill",
+      "registry",
+      "agents"
+    ],
+    "phases": {
+      "discovery": {
+        "variant": "competitors",
+        "includes": [
+          "competitors",
+          "interview"
+        ],
+        "status": "done",
+        "requires": [],
+        "output_dir": "docs/discovery/",
+        "outputs": [
+          "docs/discovery/informe-discovery.md",
+          "docs/discovery/discovery.md",
+          "docs/discovery/sources/"
+        ],
+        "notes": "Competidores + entrevista; carpeta de salida docs/discovery/ e informe final informe-discovery.md por pedido del usuario",
+        "started": "2026-11-18",
+        "completed": "2026-11-18"
+      },
+      "kb": {
+        "variant": "interview",
+        "status": "pending",
+        "requires": [
+          "discovery"
+        ],
+        "outputs": [
+          "knowledge-base/"
+        ]
+      },
+      "visual-design": {
+        "variant": "deferred",
+        "status": "pending",
+        "requires": [],
+        "outputs": [
+          "design-system/README.md"
+        ]
+      },
+      "roadmap": {
+        "variant": "local-markdown",
+        "status": "pending",
+        "requires": [
+          "kb"
+        ],
+        "outputs": [
+          "CHANGES.md"
+        ]
+      },
+      "task-management": {
+        "variant": "local",
+        "status": "pending",
+        "requires": [
+          "roadmap"
+        ],
+        "outputs": [
+          ".active-stack/roadmap.json"
+        ]
+      },
+      "find-skill": {
+        "variant": "recommend",
+        "status": "pending",
+        "requires": [
+          "kb"
+        ],
+        "outputs": []
+      },
+      "registry": {
+        "variant": "index",
+        "status": "pending",
+        "requires": [
+          "find-skill"
+        ],
+        "outputs": [
+          ".atl/skill-registry.md"
+        ]
+      },
+      "agents": {
+        "variant": "generate",
+        "status": "pending",
+        "requires": [
+          "kb",
+          "roadmap",
+          "registry"
+        ],
+        "outputs": [
+          "AGENTS.md",
+          "CLAUDE.md"
+        ]
       }
     },
     "pause": {
-      "before": "discovery",
-      "reason": "El usuario hace un commit antes del Discovery"
-    },
-    "order": ["discovery", "kb", "visual-design", "roadmap", "task-management", "find-skill", "registry", "agents"],
-    "phases": {
-      "discovery": {"variant": "competitors", "includes": ["competitors", "interview"], "status": "pending", "requires": [], "output_dir": "docs/discovery/", "outputs": ["docs/discovery/informe-discovery.md"], "notes": "Competidores + entrevista; carpeta de salida docs/discovery/ e informe final informe-discovery.md por pedido del usuario"},
-      "kb": {"variant": "interview", "status": "pending", "requires": ["discovery"], "outputs": ["knowledge-base/"]},
-      "visual-design": {"variant": "deferred", "status": "pending", "requires": [], "outputs": ["design-system/README.md"]},
-      "roadmap": {"variant": "local-markdown", "status": "pending", "requires": ["kb"], "outputs": ["CHANGES.md"]},
-      "task-management": {"variant": "local", "status": "pending", "requires": ["roadmap"], "outputs": [".active-stack/roadmap.json"]},
-      "find-skill": {"variant": "recommend", "status": "pending", "requires": ["kb"], "outputs": []},
-      "registry": {"variant": "index", "status": "pending", "requires": ["find-skill"], "outputs": [".atl/skill-registry.md"]},
-      "agents": {"variant": "generate", "status": "pending", "requires": ["kb", "roadmap", "registry"], "outputs": ["AGENTS.md", "CLAUDE.md"]}
+      "before": "kb",
+      "reason": "Protocolo de inspección: el usuario revisa el informe antes de avanzar"
+    }
+  },
+  "discovery": {
+    "created_by": "discovery-research",
+    "sources": [
+      "https://bilog.com.ar/",
+      "https://web.dentaltec.com.ar/",
+      "https://dentalsoft.com.ar/",
+      "https://dentia.tech/",
+      "https://odonthia.com/",
+      "https://odonto.ar/",
+      "https://www.odonapp.com/",
+      "https://dentalcore.app/",
+      "https://agendapro.com/ar/dental/software-odontologico",
+      "https://www.softwaredentalink.com/",
+      "https://doctocliq.com/",
+      "https://dentidesk.com/",
+      "https://clinic-cloud.com/",
+      "https://www.medesk.net/es/solutiones/odontologia",
+      "https://www.opendental.com/",
+      "https://www.curvedental.com/",
+      "https://www.dentrixascend.com/"
+    ],
+    "sources_fetched_at": "2026-11-18",
+    "competitors": [
+      {
+        "name": "Bilog",
+        "notes_file": "docs/discovery/sources/bilog.md",
+        "evaluable": true
+      },
+      {
+        "name": "DentalTec",
+        "notes_file": "docs/discovery/sources/dentaltec.md",
+        "evaluable": true
+      },
+      {
+        "name": "DentalSoft",
+        "notes_file": "docs/discovery/sources/dentalsoft.md",
+        "evaluable": true
+      },
+      {
+        "name": "Dentia",
+        "notes_file": "docs/discovery/sources/dentia.md",
+        "evaluable": true
+      },
+      {
+        "name": "Odonthia",
+        "notes_file": "docs/discovery/sources/odonthia.md",
+        "evaluable": true
+      },
+      {
+        "name": "Odonto.ar",
+        "notes_file": "docs/discovery/sources/odonto-ar.md",
+        "evaluable": true
+      },
+      {
+        "name": "Odonapp",
+        "notes_file": "docs/discovery/sources/odonapp.md",
+        "evaluable": true
+      },
+      {
+        "name": "DentalCore",
+        "notes_file": "docs/discovery/sources/dentalcore.md",
+        "evaluable": false
+      },
+      {
+        "name": "AgendaPro",
+        "notes_file": "docs/discovery/sources/agendapro.md",
+        "evaluable": true
+      },
+      {
+        "name": "Dentalink",
+        "notes_file": "docs/discovery/sources/dentalink.md",
+        "evaluable": true
+      },
+      {
+        "name": "Doctocliq",
+        "notes_file": "docs/discovery/sources/doctocliq.md",
+        "evaluable": true
+      },
+      {
+        "name": "Dentidesk",
+        "notes_file": "docs/discovery/sources/dentidesk.md",
+        "evaluable": true
+      },
+      {
+        "name": "Clinic Cloud",
+        "notes_file": "docs/discovery/sources/clinic-cloud.md",
+        "evaluable": true
+      },
+      {
+        "name": "Medesk",
+        "notes_file": "docs/discovery/sources/medesk.md",
+        "evaluable": true
+      },
+      {
+        "name": "Open Dental",
+        "notes_file": "docs/discovery/sources/open-dental.md",
+        "evaluable": true
+      },
+      {
+        "name": "Curve Dental",
+        "notes_file": "docs/discovery/sources/curve-dental.md",
+        "evaluable": true
+      },
+      {
+        "name": "Dentrix Ascend",
+        "notes_file": "docs/discovery/sources/dentrix-ascend.md",
+        "evaluable": true
+      }
+    ],
+    "competitors_summary": "16 evaluados + 1 no evaluable (DentalCore, sitio sin respuesta)",
+    "report_file": "docs/discovery/informe-discovery.md",
+    "discovery_file": "docs/discovery/discovery.md",
+    "problema": "Consultorios y clínicas odontológicas chicas con varios profesionales y sillones/boxes coordinan turnos sin controlar a la vez la disponibilidad del profesional y del sillón, generando superposiciones y huecos mal aprovechados. SaaS argentino por suscripción, en marco académico.",
+    "usuarios": [
+      "Administrador: alta de profesionales, sillones y prestaciones; horarios",
+      "Recepcionista: crea, reprograma y cancela turnos",
+      "Odontólogo: consulta su agenda y carga bloqueos",
+      "Paciente: dato del turno, no opera el sistema (roles en el dominio, sin login)"
+    ],
+    "casos_de_uso": [
+      "Como administrador, registrar profesionales, sillones y prestaciones con duración y compatibilidad",
+      "Como recepcionista, crear un turno (prestación, profesional, sillón, hora) rechazando solapamientos",
+      "Como recepcionista, reprogramar o cancelar respetando la anticipación mínima",
+      "Como odontólogo, bloquear franjas de la agenda"
+    ],
+    "funcionalidades_necesarias": [
+      "Alta de profesionales, sillones/boxes y prestaciones con duración variable",
+      "Crear/reprogramar/cancelar turnos con prevención de solapamientos por profesional y por sillón",
+      "Bloqueos de agenda",
+      "API REST + frontend en TypeScript vanilla con Tailwind, con tests automatizados",
+      "Un único change implementado para la entrega; el resto del MVP en el roadmap"
+    ],
+    "funcionalidades_opcionales": [
+      "Consulta de huecos disponibles",
+      "Lista de espera",
+      "Recordatorios vía adaptador de notificaciones",
+      "Reserva online por link",
+      "Ficha clínica y odontograma",
+      "Obras sociales, cobros, ARCA, Mercado Pago, WhatsApp API oficial",
+      "Autenticación, multi-tenant, multi-sede"
+    ],
+    "reglas_de_negocio": [
+      "Un profesional no puede tener dos turnos superpuestos",
+      "Un sillón/box no puede tener dos turnos superpuestos",
+      "Intervalos [inicio, fin): contiguos no se solapan",
+      "La duración de la prestación determina la hora de fin",
+      "No se dan turnos en horarios bloqueados",
+      "Turnos solo dentro del horario laboral del profesional",
+      "Compatibilidad prestación-profesional-sillón",
+      "No cancelar/reprogramar con menos de N horas (N configurable)",
+      "Cancelar libera profesional y sillón",
+      "Inicio de turnos en múltiplos de 5 minutos"
+    ],
+    "integraciones": [
+      "Ninguna real en el MVP; notificaciones por puerto/adaptador simulado (email o registro)"
+    ],
+    "restricciones": [
+      "5 estudiantes, trabajo académico",
+      "Entrega miércoles 2026-11-25",
+      "Un único change implementado",
+      "Stack definido por el grupo: backend Spring Boot con Gradle y PostgreSQL, corriendo en local con Docker Compose; frontend obligatorio en TypeScript vanilla con Tailwind.",
+      "Interfaz gráfica obligatoria: API REST + frontend en TypeScript vanilla con Tailwind",
+      "Sin servicios pagos ni verificaciones externas",
+      "Nunca datos reales de pacientes",
+      "Leyes 25.326 y 26.529 como requisito de diseño"
+    ],
+    "decisiones": [
+      "Una sola clínica, no multi-tenant (sin impedirlo a futuro)",
+      "Zona horaria America/Argentina/Buenos_Aires",
+      "Una sola sede",
+      "Un turno = un profesional + un sillón",
+      "Sin autenticación; roles en el dominio",
+      "Stack definido por el grupo: backend Spring Boot con Gradle y PostgreSQL, corriendo en local con Docker Compose; frontend obligatorio en TypeScript vanilla con Tailwind."
+    ],
+    "riesgos": [
+      "Principal: una semana para informe, fundación, change, video y reflexión",
+      "Supuesto sin probar: la agenda por sillón como dolor real",
+      "Concurrencia sobre el mismo hueco",
+      "Cumplimiento normativo declarativo"
+    ],
+    "preguntas_abiertas": [
+      "Valor por defecto de N y si aplica igual a cancelar y reprogramar",
+      "Bloqueo sobre franjas con turnos existentes",
+      "Qué único change se implementa (fase roadmap)",
+      "Sobreturnos, concurrencia, tiempo de preparación del sillón",
+      "Bloqueos recurrentes y por sillón",
+      "Datos mínimos del paciente, auditoría, conservación/exportación (25.326/26.529)",
+      "Política futura de ausentismo y lista de espera",
+      "Contrato del puerto de notificaciones"
+    ],
+    "confirmed_at": "2026-11-18",
+    "stack": {
+      "backend": "Spring Boot",
+      "build": "Gradle",
+      "database": "PostgreSQL",
+      "runtime": "Docker Compose (local)",
+      "frontend": {
+        "tech": "TypeScript vanilla + Tailwind",
+        "status": "obligatorio"
+      }
     }
   }
 }
