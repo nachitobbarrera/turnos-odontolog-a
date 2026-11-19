@@ -9,7 +9,7 @@
 
 ## Usuarios objetivo
 
-Consultorios dentales de cualquier tamaño (EE. UU.).
+Consultorios dentales de cualquier tamaño. País: no evidenciado en la home.
 
 ## Features detectadas
 

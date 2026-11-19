@@ -37,4 +37,4 @@ Asistente IA WhatsApp 24 h, cefalometría con IA, facturación ARCA integrada.
 
 ## Notas del investigador
 
-"+100 clínicas" (autodeclarado). Casos con nombre: no hay ("Clínica Sonrisas" es demo ficticia). No evidenciado: vistas de agenda, sillones, bloqueos, lista de espera, backup, Ley 26.529, API pública. Producto aparentemente joven: priorizar demo.
+"+100 clínicas" (autodeclarado). Casos con nombre: no hay ("Clínica Sonrisas" es demo ficticia). No evidenciado: vistas de agenda, sillones, bloqueos, lista de espera, backup, Ley 26.529, API pública. Sin cifras de adopción verificables: priorizar demo.
